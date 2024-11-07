@@ -9,7 +9,7 @@ const userScheme = new mongoose.Schema({
         type: String,
         required: true,
     },
-    clerk:{
+    clerkId:{
         type: String,
         required: true,
         unique: true
