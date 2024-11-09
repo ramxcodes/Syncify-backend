@@ -10,12 +10,18 @@ import {
 
 const router = Router();
 
-router.get("/check", protectRoutes, requireAdmin, checkAdmin);
+// Admin Middleware for all routes
+router.use(protectRoutes, requireAdmin)
 
-router.post("/songs", protectRoutes, requireAdmin, createSong);
-router.delete("/songs/:id", protectRoutes, requireAdmin, deleteSong);
+// Check Admin
+router.get("/check", checkAdmin);
 
-router.post("/albums", protectRoutes, requireAdmin, createAlbum);
-router.delete("/albums/:id", protectRoutes, requireAdmin, deleteAlbum);
+// Songs Routes
+router.post("/songs", createSong);
+router.delete("/songs/:id", deleteSong);
+
+// Album Routes
+router.post("/albums", createAlbum);
+router.delete("/albums/:id", deleteAlbum);
 
 export default router;
