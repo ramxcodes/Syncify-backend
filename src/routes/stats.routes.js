@@ -6,6 +6,6 @@ const router = Router();
 
 
 
-router.get("/", protectRoutes, requireAdmin,getStats);
+router.get("/", protectRoutes, requireAdmin, getStats);
 
 export default router;
