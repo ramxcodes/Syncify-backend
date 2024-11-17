@@ -15,7 +15,7 @@ export const initializeSocket = (server) => {
   io.on("connection", (socket) => {
     socket.on("user_connected", (userId) => {
       userSockets.set(userId, socket.id);
-      userActivities.set(userId, "Not listening anything, Chat with them!");
+      userActivities.set(userId, "Idle");
 
       // broadcast to all connected sockets that this user just logged in
       io.emit("user_connected", userId);
