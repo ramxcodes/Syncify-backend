@@ -14,11 +14,19 @@ import songRoutes from "./routes/songs.routes.js";
 import albumRoutes from "./routes/album.routes.js";
 import statsRoutes from "./routes/stats.routes.js";
 
+// Socket
+import { createServer } from "http";
+import { initializeSocket } from "./lib/socket.js";
+
 dotenv.config();
 
 const app = express();
 const __dirname = path.resolve();
 const PORT = process.env.PORT;
+
+const httpServer = createServer(app)
+initializeSocket();
+
 
 app.use(cors({
   origin:"http://localhost:3000",
@@ -59,7 +67,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });
