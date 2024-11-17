@@ -24,14 +24,17 @@ const app = express();
 const __dirname = path.resolve();
 const PORT = process.env.PORT;
 
-const httpServer = createServer(app)
-initializeSocket();
+const httpServer = createServer(app);
 
+// Initialize Socket.IO with httpServer
+initializeSocket(httpServer);
 
-app.use(cors({
-  origin:"http://localhost:3000",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(clerkMiddleware());
@@ -54,17 +57,14 @@ app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statsRoutes);
 
-//error handler
-
+// Error handler
 app.use((err, req, res, next) => {
-  res
-    .status(500)
-    .json({
-      message:
-        process.env.NODE_ENV === "production"
-          ? "Internal server error"
-          : err.message,
-    });
+  res.status(500).json({
+    message:
+      process.env.NODE_ENV === "production"
+        ? "Internal server error"
+        : err.message,
+  });
 });
 
 httpServer.listen(PORT, () => {
