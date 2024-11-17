@@ -18,6 +18,9 @@ import statsRoutes from "./routes/stats.routes.js";
 import { createServer } from "http";
 import { initializeSocket } from "./lib/socket.js";
 
+//cron
+import cron from "node-cron";
+
 dotenv.config();
 
 const app = express();
@@ -31,7 +34,7 @@ initializeSocket(httpServer);
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
@@ -49,6 +52,22 @@ app.use(
     },
   })
 );
+
+// cron jobs
+const tempDir = path.join(process.cwd(), "tmp");
+cron.schedule("0 * * * *", () => {
+  if (fs.existsSync(tempDir)) {
+    fs.readdir(tempDir, (err, files) => {
+      if (err) {
+        console.log("error", err);
+        return;
+      }
+      for (const file of files) {
+        fs.unlink(path.join(tempDir, file), (err) => {});
+      }
+    });
+  }
+});
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
