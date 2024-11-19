@@ -81,3 +81,19 @@ export const getTrendingSongs = async (req, res, next) => {
     next(error);
   }
 };
+
+export const searchSongsByNameOrArtist = async (req, res, next) => {
+  try {
+    const { name } = req.query;
+
+    if (!name) {
+      return res.status(400).json({ message: "Search query cannot be empty" });
+    }
+
+    const songs = await Song.fuzzySearch(name);
+
+    res.json(songs);
+  } catch (error) {
+    next(error);
+  }
+};
