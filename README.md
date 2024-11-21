@@ -7,13 +7,13 @@ Syncify Backend is a powerful and scalable backend solution for a music streamin
 
 `Some Features -`
 
-🎸 Control music playback with next and previous song options
-🔈 Adjust the volume seamlessly using a slider
-🎧 Admin dashboard for managing albums and adding new songs
-💬 Real-time chat integrated within Spotify
-👨🏼‍💼 Track users' online and offline status
-👀 View what others are listening to in real-time
-📊 Collect data for analytics insights
+🎸 Control music playback with next and previous song options </br>
+🔈 Adjust the volume seamlessly using a slider</br>
+🎧 Admin dashboard for managing albums and adding new songs</br>
+💬 Real-time chat integrated within Spotify</br>
+👨🏼‍💼 Track users' online and offline status</br>
+👀 View what others are listening to in real-time</br>
+📊 Collect data for analytics insights</br>
 
 ---
 `Tech Stack -`
