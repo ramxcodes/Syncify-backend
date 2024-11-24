@@ -2,9 +2,22 @@ import { Server } from "socket.io";
 import { Message } from "../models/message.model.js";
 
 export const initializeSocket = (server) => {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://syncify-me.vercel.app",
+    "https://www.syncify.rocks",
+  ];
+
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: (origin, callback) => {
+        // Allow requests with no origin (e.g., mobile apps or curl requests)
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
       credentials: true,
     },
   });
