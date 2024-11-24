@@ -32,12 +32,26 @@ const httpServer = createServer(app);
 // Initialize Socket.IO with httpServer
 initializeSocket(httpServer);
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://syncify-me.vercel.app",
+  "https://www.syncify.rocks",
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g., mobile apps or curl requests)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+console.log("Allowed Origins:", allowedOrigins);
 
 app.use(express.json());
 app.use(clerkMiddleware());
