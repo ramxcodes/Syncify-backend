@@ -36,6 +36,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://syncify-me.vercel.app",
   "https://www.syncify.rocks",
+  "https://syncify.ramx.in"
 ];
 
 app.use(
